@@ -7,3 +7,21 @@ example: a = 'abcde', b = 'fghijk', result c = 'abcdefghijk'
 Example 1: a = 'aabaa', result = 'aa' & 'aa'
 Example 2: a = 'aaa123bbaac', result = 'aaa', 'bb', 'aa'
 
+3) Print a pattern like this into the output screen:
+
+*
+**
+***
+****
+*****
+
+4) if you are able to do the previous one, try this:
+
+*
+**
+***
+****
+***
+**
+*
+
