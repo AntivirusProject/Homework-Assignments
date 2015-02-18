@@ -1,0 +1,9 @@
+1) take a string array a which has 5 characters and take another string array b which has 6 characters. now concatenate these two strings into one and save it to another string array c.
+
+example: a = 'abcde', b = 'fghijk', result c = 'abcdefghijk'
+
+2) take a string array a which has 10 characters. Now find those characters which are consecutively repeating.
+
+Example 1: a = 'aabaa', result = 'aa' & 'aa'
+Example 2: a = 'aaa123bbaac', result = 'aaa', 'bb', 'aa'
+
