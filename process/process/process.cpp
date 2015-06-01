@@ -38,8 +38,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	char buffer[30];
 	float x, y, z;
 	int t = 0;
+	int time1 = 0;
+	int time2 = 0;
+	int total;
+	int speed;
+	int distance = 30;
 	float diff;
-	float s[300];
+	float s[700];
 	HANDLE file;
 	COMMTIMEOUTS timeouts;
 	DWORD read, written;
@@ -48,7 +53,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	HANDLE screen = GetStdHandle(STD_OUTPUT_HANDLE);
 	DWORD mode;
 	//char port_name[128] = "\\\\.\\COM3";
-	LPCWSTR port_name = L"\\\\.\\COM4";
+	LPCWSTR port_name = L"\\\\.\\COM3";
 	char init[] = ""; // e.g., "ATZ" to completely reset a modem.
 
 	if (argc > 2)
@@ -115,11 +120,36 @@ int _tmain(int argc, _TCHAR* argv[])
 		//if (read){
 		//WriteFile(screen, buffer, read, &written, NULL);
 		sscanf_s(buffer, "%f %f %f", &x, &y, &z);
-		printf("\n%f %f %f\n", x, y, z);
+		//printf("\n%f %f %f\n", x, y, z);
+		s[t] = sqrt(x*x + y*y + z*z);
+		diff = s[t] - s[t - 1];
+		//printf("\n%f", diff);
+		if ((diff > 0.5 || diff < -0.5) && flag == 0 && s[t] > 90){
+			printf("Detected");
+			flag = 1;
+			time2 = t;
+		}
+		
+		if ((diff < 0.5 || diff > -0.5) && flag == 1){
+			flag = 0;
+			printf("The Car has left");
+	
+		}
+
+		if (time1 > 0){
+		total = (time2 - time1) ;
+		distance = speed * total;
+		printf("Your speed is %d Centimeters Per Second", speed);
+		}
+		
+
+		time1 = time2;
+		
+		//printf("%f \n", diff);
 		t = t + 1;
 		//}
 
-	} while (t < 300);
+	} while (t < 700);
 
 	printf("End");
 	CloseHandle(keyboard);
