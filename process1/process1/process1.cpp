@@ -157,12 +157,18 @@ int _tmain(int argc, _TCHAR* argv[])
 			s1[t] = sqrt(x1*x1 + y1*y1 + z1*z1);
 			
 			s2[t] = sqrt(x2*x2 + y2*y2 + z2*z2);
+			t = t + 1;
 		}
 	} while (t < 4);
 
 	baseline1 = s1[t];
 	baseline2 = s2[t];
-
+	int count = 0;
+	bool car_enter = 0;
+	bool car_depart = 0;
+	float threshold = 7.0;
+	float time1, time2, time3, time_to_cross_sen2,total_time, length, speed;
+	float distance = 30;
 	do {
 
 		ReadFile(file1, buffer1, sizeof(buffer1), &read1, NULL);
@@ -177,30 +183,52 @@ int _tmain(int argc, _TCHAR* argv[])
 			s2[t] = sqrt(x2*x2 + y2*y2 + z2*z2);
 			diff2 = s2[t] - s2[t - 1];
 			printf("\n\n%f \t %f", diff1, diff2);
-			if ((diff1 > 4.0 || diff1 < -4.0) && flag1 == 0){
-				printf("Detected");
+			if ((diff1 > threshold || diff1 < -threshold) && flag1 == 0 && (s1[t] > baseline1 + 5 || s1[t] < baseline1 - 5)){
+				//printf("\n Detected");
 				flag1 = 1;
+				time1 = t;
+				car_enter = true;
 				
 			}
 
-			if ((diff1 < 4.0 || diff1 > -4.0) && flag1 == 1){
+			if ((diff1 < threshold && diff1 > -threshold) && flag1 == 1){
 				flag1 = 0;
-				printf("The Car has left");
+				//printf("\n The Car has left");
 
 			}
 
-			if ((diff2 > 4.0 || diff2 < -4.0) && flag2 == 0){
-				printf("Detected");
+			if ((diff2 > threshold || diff2 < -threshold) && flag2 == 0 && (s2[t] > baseline2 + 5 || s2[t] < baseline2 - 5)){
+				//printf("\n Detected");
 				flag2 = 1;
+				time2 = t;
 				
 			}
 
-			if ((diff2 < 4.0 || diff2 > -4.0) && flag2 == 1){
+			if ((diff2 < threshold && diff2 > -threshold) && flag2 == 1){
 				flag2 = 0;
-				printf("The Car has left");
+				time3 = t;
+				car_depart = true;
+				//printf("\n The Car has left");
+				
 
 			}
+
+			if (car_enter == true && car_depart == true){
+				car_enter = false;
+				car_depart = false;
+				total_time = (time2 - time1) * 100 / 1000;
+				speed = distance / total_time;
+				time_to_cross_sen2 = (time3 - time2) * 100 / 1000;
+				length = time_to_cross_sen2 * speed;
+				count = count + 1;
+				printf("\n Count: %d", count);
+				printf("\n Speed: %f cm/s", speed);
+				printf("\n Length: %f cm", length);
+			}
+
+			
 			t = t + 1;
+			
 		}
 
 		
