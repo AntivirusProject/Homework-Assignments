@@ -50,8 +50,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	DWORD mode;
 	//char port_name[128] = "\\\\.\\COM3";
-	LPCWSTR port_name1 = L"\\\\.\\COM4";
-	LPCWSTR port_name2 = L"\\\\.\\COM5";
+	LPCWSTR port_name1 = L"\\\\.\\COM3";
+	LPCWSTR port_name2 = L"\\\\.\\COM6";
 	char init1[] = ""; // e.g., "ATZ" to completely reset a modem.
 	char init2[] = "";
 
@@ -168,7 +168,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	bool car_depart = 0;
 	float threshold = 7.0;
 	float time1, time2, time3, time_to_cross_sen2,total_time, length, speed;
-	float distance = 30;
+	float distance = 28;
 	do {
 
 		ReadFile(file1, buffer1, sizeof(buffer1), &read1, NULL);
