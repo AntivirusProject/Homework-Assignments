@@ -163,14 +163,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	baseline1 = s1[t];
 	baseline2 = s2[t];
-	int count = 0;
+	int count = 0; int prev_count = 0;
 	bool car_enter = 0;
 	bool car_depart = 0;
-	float threshold = 7.0;
-	float time1, time2, time3, time_to_cross_sen2,total_time, length, speed;
+	float threshold = 4.0;
+	float time1, time2, time3, time4, time_to_cross_sen2,total_time, length, speed;
 	float distance = 28;
 	do {
-
+		prev_count = count;
 		ReadFile(file1, buffer1, sizeof(buffer1), &read1, NULL);
 		ReadFile(file2, buffer2, sizeof(buffer2), &read2, NULL);
 		if (read1 && read2){
@@ -182,17 +182,18 @@ int _tmain(int argc, _TCHAR* argv[])
 			diff1 = s1[t] - s1[t - 1];
 			s2[t] = sqrt(x2*x2 + y2*y2 + z2*z2);
 			diff2 = s2[t] - s2[t - 1];
-			printf("\n\n%f \t %f", diff1, diff2);
+			//printf("\n\n%f \t %f", diff1, diff2);
 			if ((diff1 > threshold || diff1 < -threshold) && flag1 == 0 && (s1[t] > baseline1 + 5 || s1[t] < baseline1 - 5)){
 				//printf("\n Detected");
 				flag1 = 1;
 				time1 = t;
-				car_enter = true;
+				car_enter = 1;
 				
 			}
 
 			if ((diff1 < threshold && diff1 > -threshold) && flag1 == 1){
 				flag1 = 0;
+				time2 = t;
 				//printf("\n The Car has left");
 
 			}
@@ -200,30 +201,31 @@ int _tmain(int argc, _TCHAR* argv[])
 			if ((diff2 > threshold || diff2 < -threshold) && flag2 == 0 && (s2[t] > baseline2 + 5 || s2[t] < baseline2 - 5)){
 				//printf("\n Detected");
 				flag2 = 1;
-				time2 = t;
+				time3 = t;
 				
 			}
 
 			if ((diff2 < threshold && diff2 > -threshold) && flag2 == 1){
 				flag2 = 0;
-				time3 = t;
-				car_depart = true;
-				//printf("\n The Car has left");
-				
-
-			}
-
-			if (car_enter == true && car_depart == true){
-				car_enter = false;
-				car_depart = false;
-				total_time = (time2 - time1) * 100 / 1000;
-				speed = distance / total_time;
-				time_to_cross_sen2 = (time3 - time2) * 100 / 1000;
-				length = time_to_cross_sen2 * speed;
+				time4 = t;
+				car_depart = 1;
 				count = count + 1;
+				//printf("\n The Car has left");
+				total_time = (time3 - time1) * 100 / 1000;
+				speed = distance / total_time;
+				time_to_cross_sen2 = (time2 - time1 - 0.5) * 100 / 1000;
+				length = time_to_cross_sen2 * speed;
+
 				printf("\n Count: %d", count);
 				printf("\n Speed: %f cm/s", speed);
-				printf("\n Length: %f cm", length);
+				//printf("\n Length: %f cm", length);
+
+				if (length > 20)
+					printf("\nBig car");
+				else if (length < 20)
+					printf("\nsmall car");
+				
+
 			}
 
 			
