@@ -1,0 +1,96 @@
+Payroll System Using Inheritance and Polymorphism
+
+1. Implement an interface called EmployeeInfo with the following constant variables:
+
+FACULTY_MONTHLY_SALARY = 5000.00
+STAFF_MONTHLY_HOURS_WORKED = 160
+2. Implement an abstract class Employee with the following requirements:
+
+Attributes
+last name (String)
+first name (String)
+ID number (String)
+Sex - M or F
+Birth date (Date) - Use the Java Calendar Java class. 
+Default argument constructor and argument constructors.
+Public methods
+toString - returning a string with the following format:
+ID Employee number :_________
+Employee name: __________ 
+Birth date: _______
+get and set methods
+abstract method monthlyEarning that returns the monthly earning.
+3. Implement a class called Staff extending from the class Employee with the following requirements:
+
+Attribute
+Hourly rate
+Default argument and argument contructors
+Public methods
+get and set
+The method monthlyEarning returns monthly salary (hourly rate times 160)
+toString - returning a string with the following format:
+ID Employee number :_________
+Employee name: __________ 
+Birth date: _______ 
+Full Time 
+Monthly Salary: _________
+Implelment a class Education with the following requirements:
+
+Attributes
+Degree (MS or PhD )
+Major (Engineering, Chemistry, English, etc ... )
+Research (number of researches)
+Default argument and argument constructors.
+Public methods
+get and set
+Implement a class Faculty extending from the class Employee with the following requirements:
+
+Attributes
+Level
+"AS": assistant professor
+"AO": associate professor
+"FU": professor
+Education object
+Default argument and argument constructor
+Public methods
+get and set
+The method monthlyEarning returns monthly salary based on the faculty's level.
+AS - faculty monthly salary
+AO - 1.2 times faculty monthly salary
+FU - 1.4 times faculty monthly salary
+toString - returning a string with the following format:
+ID Employee number :_________
+Employee name: __________ 
+Birth date: _______ 
+XXXXX Professor where  XXXXX can be Assistant, Associate or Full 
+Monthly Salary: _________
+Implement a class called Partime extending from the class Staff with the following requirements:
+
+Attributes
+Hours worked per week
+Default argument and argument constructors
+Public methods
+set and get
+The method monthlyEarning returns monthly salary which hourly rate multiplied hours worked per week multiplied four.
+toString - returning a string with the following format:
+ID Employee number :_________
+Employee name: __________ 
+Birth date: _______ 
+Hours works per month: ______ 
+Monthly Salary: _________
+Implement a test driver program that creates a one-dimensional array of class Employee to store the objects Staff, Faculty and Partime. 
+
+Using polymorphism, display the following outputs: 
+
+a. Employee information using the method toString
+
+Staff
+Faculty
+Part-time
+b. Total monthly salary for all the part-time staff .
+c. Total monthly salary for all employees.
+d. Display all employee information ascending by employee id using interface Comparable
+e. Display all employee information descending by last name using interface Comparer
+f. Duplicate a faculty object using clone. Verify the duplication.
+
+

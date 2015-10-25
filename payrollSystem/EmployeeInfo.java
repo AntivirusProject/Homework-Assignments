@@ -1,0 +1,5 @@
+package payrollSystem;
+
+interface EmployeeInfo {
+
+}
