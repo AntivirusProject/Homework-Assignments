@@ -34,9 +34,8 @@ public class SingleLinkList {
 		size++;
 	}
 	
-	public void remove(){
-		
-	}
+
+	
 	public int size(){
 		return size;
 	}
